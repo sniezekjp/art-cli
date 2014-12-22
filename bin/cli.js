@@ -11,7 +11,7 @@ switch(args[0]) {
       console.log('app created');
       process.exit(0);
     }
-    exec('git clone git@github.com:sniezekjp/ng-require-typescript-seed.git ' + appName, cb);
+    exec('git clone git@github.com:sniezekjp/art-seed.git ' + appName, cb);
     break;
   case "install":
     var cb = function() {
