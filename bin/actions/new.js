@@ -6,6 +6,8 @@ module.exports = function(args) {
   try {
     require('../options/' + option)(args);
   } catch(e) {
+    console.log(e.message);
+    process.exit();
     var appName = args[1] || 'app';
     var createCb = function() {
       console.log('app created');
