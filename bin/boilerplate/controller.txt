@@ -1,0 +1,6 @@
+/// <reference path="../../../../defs/_app.d.ts" />
+
+import app = require('../../../app/APP_TYPE');
+app.controller('CTRLController', function() {
+
+});

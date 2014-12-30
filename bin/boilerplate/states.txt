@@ -1,0 +1,13 @@
+/// <reference path="../../../../defs/_app.d.ts" />
+
+import State = require('../../../lib/State');
+import StateConfig = require('../../../lib/StateConfig');
+
+(function() {
+  var config = new StateConfig();
+  config.setTemplateUrl('modules/MODULE/views/MODULE.tpl.html');
+  config.setUrl('/MODULE');
+
+  var state = new State('MODULE');
+  state.init(config);
+})();

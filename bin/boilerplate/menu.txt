@@ -1,0 +1,12 @@
+/// <reference path="../../../defs/_app.d.ts" />
+
+import app = require('../app');
+import Menu = require('../../lib/Menu');
+
+app.controller('MENUController', function($scope, MENU) {
+  $scope.menu = MENU;
+});
+
+var sidebar = new Menu('MENU');
+
+export = sidebar;

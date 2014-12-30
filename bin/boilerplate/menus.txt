@@ -1,0 +1,8 @@
+/// <reference path="../../../../defs/_app.d.ts" />
+
+import menu = require('../../../app/menus/Sidebar');
+
+menu.addMenuItem({
+  name: 'MODULE',
+  sref: 'MODULE'
+});

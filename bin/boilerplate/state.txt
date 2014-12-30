@@ -1,0 +1,8 @@
+(function() {
+  var config = new StateConfig();
+  config.setUrl('/STATE');
+  config.setTemplateUrl('modules/MODULE/views/MODULE-STATE.tpl.html');
+
+  var state = new State('MODULE.STATE');
+  state.init(config);
+})();
