@@ -1,8 +1,10 @@
 var fs = require('fs-extra');
 var path = require('path');
-
 module.exports = function(args) {
-  var src = path.join(process.cwd(), 'src');
+  var configFile = path.join(__dirname, '../config.json');
+  var config = fs.readJsonSync(configFile);
+
+  var src = path.join(process.cwd(), config.src);
   var dir = path.join(src, 'modules', args[2]);
   var config = path.join(dir, 'config');
   var views  = path.join(dir, 'views');

@@ -1,6 +1,8 @@
 var fs   = require('fs-extra');
 var path = require('path');
-var src  = path.join(process.cwd(), 'src');
+var configFile = path.join(__dirname, '../config.json');
+var config = fs.readJsonSync(configFile);
+var src  = path.join(process.cwd(), config.src);
 
 module.exports = function(args) {
   var menuFile;
