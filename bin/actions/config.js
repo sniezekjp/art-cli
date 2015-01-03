@@ -2,7 +2,7 @@ var fs = require('fs-extra');
 var path = require('path');
 
 module.exports = function(args) {
-  var configFile = path.join(__dirname, '../config.json');
+  var configFile = path.join(process.cwd(), './.artrc');
   var config = fs.readJsonSync(configFile);
   if(args[2]) {
     config[args[1]] = args[2];

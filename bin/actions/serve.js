@@ -6,7 +6,7 @@ var fs = require('fs-extra');
 
 module.exports = function(args) {
   var app = express();
-  var configFile = path.join(__dirname, '../config.json');
+  var configFile = path.join(process.cwd(), './.artrc');
   var config = fs.readJsonSync(configFile);
   var serving  = path.join(process.cwd(), config.src);
   app.use(serve(path.join(serving)));

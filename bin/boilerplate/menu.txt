@@ -7,6 +7,6 @@ app.controller('MENUController', function($scope, MENU) {
   $scope.menu = MENU;
 });
 
-var sidebar = new Menu('MENU');
+var menu = new Menu('MENU');
 
-export = sidebar;
+export = menu;

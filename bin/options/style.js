@@ -1,6 +1,6 @@
 var fs   = require('fs-extra');
 var path = require('path');
-var configFile = path.join(__dirname, '../config.json');
+var configFile = path.join(process.cwd(), './.artrc');
 var config = fs.readJsonSync(configFile);
 var src  = path.join(process.cwd(), config.src);
 
