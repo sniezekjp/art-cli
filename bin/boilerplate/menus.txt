@@ -3,6 +3,6 @@
 import menu = require('../../../app/menus/Sidebar');
 
 menu.addMenuItem({
-  name: 'MODULE',
+  name: 'UPPERCASE_MODULE',
   sref: 'MODULE'
 });

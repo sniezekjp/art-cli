@@ -7,38 +7,46 @@ module.exports = function(args) {
     var config = fs.readJsonSync(configFile);
 
     var src = path.join(process.cwd(), config.src);
-    var dir = path.join(src, 'modules', args[2]);
-    var configDir = path.join(dir, 'config');
-    var views = path.join(dir, 'views');
-    var menus = path.join(configDir, 'menus.ts');
-    var states = path.join(configDir, 'states.ts');
 
-    fs.ensureDirSync(dir);
-    fs.ensureDirSync(configDir);
-    fs.ensureDirSync(views);
+    var modules = args[2].split(',');
+    modules.forEach(function(module) {
+      var upperCaseModule = module;
+      module = module.toLowerCase();
+      var dir = path.join(src, 'modules', module);
+      var configDir = path.join(dir, 'config');
+      var views = path.join(dir, 'views');
+      var menus = path.join(configDir, 'menus.ts');
+      var states = path.join(configDir, 'states.ts');
 
-    var menusBoilerplate = fs.readFileSync(path.join(__dirname, '../boilerplate/menus.txt'), {encoding: 'utf-8'});
-    var statesBoilerplate = fs.readFileSync(path.join(__dirname, '../boilerplate/states.txt'), {encoding: 'utf-8'});
+      fs.ensureDirSync(dir);
+      fs.ensureDirSync(configDir);
+      fs.ensureDirSync(views);
 
-    var menusContent = menusBoilerplate.replace(/MODULE/g, args[2]);
-    var statesContent = statesBoilerplate.replace(/MODULE/g, args[2]);
+      var menusBoilerplate = fs.readFileSync(path.join(__dirname, '../boilerplate/menus.txt'), {encoding: 'utf-8'});
+      var statesBoilerplate = fs.readFileSync(path.join(__dirname, '../boilerplate/states.txt'), {encoding: 'utf-8'});
 
-    fs.outputFileSync(path.join(configDir, 'menus.ts'), menusContent);
-    fs.outputFileSync(path.join(configDir, 'states.ts'), statesContent);
-    fs.outputFileSync(path.join(views, args[2] + '.tpl.html'), '<h1>' + args[2] + ' module</h1>');
+      var menusContent = menusBoilerplate.replace(/UPPERCASE_MODULE/g, upperCaseModule);
+      menusContent = menusContent.replace(/MODULE/g, module);
+      var statesContent = statesBoilerplate.replace(/MODULE/g, module);
 
-    var bootstrapPath = path.join(src, 'app', 'bootstrap.ts');
-    var bootstrap = fs.readFileSync(bootstrapPath, {encoding: 'utf-8'});
-    var depString = '/// dependencies';
-    var menuPath = '../modules/' + args[2] + '/config/menus';
-    var statePath = '../modules/' + args[2] + '/config/states';
-    var menu = '/// <amd-dependency path="' + menuPath + '" />\n';
-    var state = '/// <amd-dependency path="' + statePath + '" />\n\n';
-    var updatedDeps = menu + state + depString;
-    bootstrap = bootstrap.replace(depString, updatedDeps);
-    fs.outputFileSync(bootstrapPath, bootstrap);
+      fs.outputFileSync(path.join(configDir, 'menus.ts'), menusContent);
+      fs.outputFileSync(path.join(configDir, 'states.ts'), statesContent);
+      fs.outputFileSync(path.join(views, module + '.tpl.html'), '<h1>' + upperCaseModule + ' module</h1>');
 
-    console.log('module created');
+      var bootstrapPath = path.join(src, 'app', 'bootstrap.ts');
+      var bootstrap = fs.readFileSync(bootstrapPath, {encoding: 'utf-8'});
+      var depString = '/// dependencies';
+      var menuPath = '../modules/' + module + '/config/menus';
+      var statePath = '../modules/' + module + '/config/states';
+      var menu = '/// <amd-dependency path="' + menuPath + '" />\n';
+      var state = '/// <amd-dependency path="' + statePath + '" />\n\n';
+      var updatedDeps = menu + state + depString;
+      bootstrap = bootstrap.replace(depString, updatedDeps);
+      fs.outputFileSync(bootstrapPath, bootstrap);
+
+      console.log(module + ' module created');
+    });
+
     process.exit(0);
   } catch(e) {
     console.log(e);
